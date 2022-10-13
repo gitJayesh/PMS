@@ -69,4 +69,14 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, authUser };
+// Admin controller
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private/Admin
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  const data = await User.find({}).select("-password");
+  res.send(data);
+});
+
+export { registerUser, authUser, getAllUsers };

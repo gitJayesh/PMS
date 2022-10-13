@@ -46,143 +46,106 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/user/login
 // @access  Public
 
-const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+// const authUser = asyncHandler(async (req, res) => {
+//   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  console.log(user);
+//   const user = await User.findOne({ email });
+//   console.log(user);
 
-  if (user && password) {
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(401);
-    throw new Error("Invalid email or password");
-  }
-});
+//   if (user && password) {
+//     res.status(200).json({
+//       _id: user._id,
+//       name: user.name,
+//       email: user.email,
+//       phone: user.phone,
+//       token: generateToken(user._id),
+//     });
+//   } else {
+//     res.status(401);
+//     throw new Error("Invalid email or password");
+//   }
+// });
 
 // Admin controller
 // @desc    Get all users
 // @route   GET /api/users
 // @access  Private/Admin
-const getAllUsers = asyncHandler(async (req, res) => {
-  const data = await User.find({}).select("-password");
-  res.send(data);
-});
+// const getAllUsers = asyncHandler(async (req, res) => {
+//   const data = await User.find({}).select("-password");
+//   res.send(data);
+// });
 
 // @desc    ADD NEW STORIES
 // @route   POST /api/user/addstories
 // @access  Public
-
-const addstories = asyncHandler(async (req, res) => {
-  //res.send("Hello");
-
-  const { storyname, description, duedate, status } = req.body;
-
-  console.log(storyname, description, duedate, status);
-  const storyExists = await stories.findOne({ storyname });
-
-  if (storyExists) {
-    res.status(400);
-    throw new Error("story already exists");
-  }
-
-  const story = await stories.create({
-    storyname,
-    description,
-    duedate,
-    status,
-  });
-
-  if (story) {
-    res.status(201).json({
-      //_id: user._id,
-      storyname: story.storyname,
-      description: story.description,
-      duedate: story.duedate,
-      status: story.status,
-      //token: generateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error("Invalid story data");
-  }
-});
 
 // Admin controller
 // @desc    Get all users
 // @route   GET /api/users/getAllStory
 // @access  Private/Admin
 
-const getAllStory = asyncHandler(async (req, res) => {
-  const data = await stories.find({});
-  res.send(data);
-});
+// const getAllStory = asyncHandler(async (req, res) => {
+//   const data = await stories.find({});
+//   res.send(data);
+// });
 
 // Admin controller
 // @desc    Get user by id
 // @route   GET /api/users/:id
 // @access  Private/Admin
-const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params._id);
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(404);
-    throw new error("User not found");
-  }
-});
+// const getUserById = asyncHandler(async (req, res) => {
+//   const user = await User.findById(req.params._id);
+//   if (user) {
+//     res.json(user);
+//   } else {
+//     res.status(404);
+//     throw new error("User not found");
+//   }
+// });
 
 // @desc    ADD NEW TASK
 // @route   POST /api/user/addstories
 // @access  Public
 
-const addtask = asyncHandler(async (req, res) => {
-  //res.send("Hello");
+// const addtask = asyncHandler(async (req, res) => {
+//   //res.send("Hello");
 
-  const { storyname, description, duedate, status } = req.body;
+//   const { storyname, description, duedate, status } = req.body;
 
-  console.log(storyname, description, duedate, status);
-  const storyExists = await stories.findOne({ storyname });
+//   console.log(storyname, description, duedate, status);
+//   const storyExists = await stories.findOne({ storyname });
 
-  if (storyExists) {
-    res.status(400);
-    throw new Error("story already exists");
-  }
+//   if (storyExists) {
+//     res.status(400);
+//     throw new Error("story already exists");
+//   }
 
-  const story = await stories.create({
-    storyname,
-    description,
-    duedate,
-    status,
-  });
+//   const story = await stories.create({
+//     storyname,
+//     description,
+//     duedate,
+//     status,
+//   });
 
-  if (story) {
-    res.status(201).json({
-      //_id: user._id,
-      storyname: story.storyname,
-      description: story.description,
-      duedate: story.duedate,
-      status: story.status,
-      //token: generateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error("Invalid story data");
-  }
-});
+//   if (story) {
+//     res.status(201).json({
+//       //_id: user._id,
+//       storyname: story.storyname,
+//       description: story.description,
+//       duedate: story.duedate,
+//       status: story.status,
+//       //token: generateToken(user._id),
+//     });
+//   } else {
+//     res.status(400);
+//     throw new Error("Invalid story data");
+//   }
+// });
 
-export {
-  registerUser,
-  getAllUsers,
-  authUser,
-  addstories,
-  getAllStory,
-  getUserById,
-  addtask,
-};
+export // registerUser,
+// getAllUsers,
+// authUser,
+// getAllStory,
+// getUserById,
+// addtask,
+ {};

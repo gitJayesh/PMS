@@ -2,8 +2,9 @@ import express from "express";
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import userRoutes from "./Routes/userRoutes.js";
+import storyRoutes from "./Routes/storyRoutes.js";
 import colors from "colors";
-import { addstories, getAllStory } from "./Controller/userController.js";
+// import { addstories, getAllStory } from "./Controller/userController.js";
 
 // Initalizing config
 dotenv.config();
@@ -24,7 +25,7 @@ app.get("/", (req, res) => {
 
 // Router
 app.use("/api/user", userRoutes);
-//app.use("/api/stories", storyRoutes);
+app.use("/api/story", storyRoutes);
 
 const PORT = process.env.PORT || 8000;
 
