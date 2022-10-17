@@ -3,6 +3,7 @@ import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import userRoutes from "./Routes/userRoutes.js";
 import storyRoutes from "./Routes/storyRoutes.js";
+import taskRoutes from "./Routes/taskRoutes.js";
 import colors from "colors";
 // import { addstories, getAllStory } from "./Controller/userController.js";
 
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 // Router
 app.use("/api/user", userRoutes);
 app.use("/api/story", storyRoutes);
+app.use("/api/task", taskRoutes);
 
 const PORT = process.env.PORT || 8000;
 

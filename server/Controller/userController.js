@@ -84,10 +84,10 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/getAllStory
 // @access  Private/Admin
 
-// const getAllStory = asyncHandler(async (req, res) => {
-//   const data = await stories.find({});
-//   res.send(data);
-// });
+const getAllStory = asyncHandler(async (req, res) => {
+  const data = await stories.find({});
+  res.send(data);
+});
 
 // Admin controller
 // @desc    Get user by id
@@ -103,49 +103,8 @@ const registerUser = asyncHandler(async (req, res) => {
 //   }
 // });
 
-// @desc    ADD NEW TASK
-// @route   POST /api/user/addstories
-// @access  Public
-
-// const addtask = asyncHandler(async (req, res) => {
-//   //res.send("Hello");
-
-//   const { storyname, description, duedate, status } = req.body;
-
-//   console.log(storyname, description, duedate, status);
-//   const storyExists = await stories.findOne({ storyname });
-
-//   if (storyExists) {
-//     res.status(400);
-//     throw new Error("story already exists");
-//   }
-
-//   const story = await stories.create({
-//     storyname,
-//     description,
-//     duedate,
-//     status,
-//   });
-
-//   if (story) {
-//     res.status(201).json({
-//       //_id: user._id,
-//       storyname: story.storyname,
-//       description: story.description,
-//       duedate: story.duedate,
-//       status: story.status,
-//       //token: generateToken(user._id),
-//     });
-//   } else {
-//     res.status(400);
-//     throw new Error("Invalid story data");
-//   }
-// });
-
 export // registerUser,
 // getAllUsers,
 // authUser,
-// getAllStory,
 // getUserById,
-// addtask,
  {};
