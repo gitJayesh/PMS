@@ -1,5 +1,4 @@
 import asyncHandler from "express-async-handler";
-import stories from "../Models/stories.js";
 import generateToken from "../utils/generateToken.js";
 import User from "../Models/User.js";
 
@@ -86,7 +85,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-  console.log("helloworld");
+  //console.log("helloworld");
 
   if (user) {
     res.json(user);
@@ -110,9 +109,10 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Admin controller
 // @desc    Update user
 // @route   PUT /api/users/:id
-// @access  Private
+// @access  Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 

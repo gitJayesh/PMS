@@ -5,6 +5,8 @@ import {
   addstories,
   getAllStory,
   getStoryById,
+  deleteStory,
+  updateStory,
 } from "../Controller/storyController.js";
 import { protect } from "../middleware/auth.js";
 
@@ -12,6 +14,6 @@ const router = express.Router();
 
 router.route("/").post(addstories).get(protect, getAllStory);
 
-router.route("/:id").get(getStoryById);
+router.route("/:id").get(getStoryById).delete(deleteStory).put(updateStory);
 
 export default router;

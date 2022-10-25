@@ -32,8 +32,8 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-// //admin authrisation
-// const admin = (req, res, next) => {
+// //Project manager authrisation
+// const pm = (req, res, next) => {
 //   if (req.user && req.user.isPM) {
 //     next();
 //   } else {
