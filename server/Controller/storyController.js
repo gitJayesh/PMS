@@ -9,17 +9,12 @@ import generateToken from "../utils/generateToken.js";
 const addstories = asyncHandler(async (req, res) => {
   //res.send("Hello");
 
-  const { storyname, description, duedate, status } = req.body;
+  const { user, storyname, description, duedate, status } = req.body;
 
   console.log(storyname, description, duedate, status);
-  const storyExists = await Stories.findOne({ storyname });
-
-  if (storyExists) {
-    res.status(400);
-    throw new Error("story already exists");
-  }
 
   const story = await Stories.create({
+    user,
     storyname,
     description,
     duedate,
@@ -29,6 +24,7 @@ const addstories = asyncHandler(async (req, res) => {
   if (story) {
     res.status(201).json({
       _id: story._id,
+      user: story.user,
       storyname: story.storyname,
       description: story.description,
       duedate: story.duedate,
@@ -41,16 +37,25 @@ const addstories = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get all story
+// @route   GET /api/users/getAllStory
+// @access  Private/User
+
+const getAllStory = asyncHandler(async (req, res) => {
+  //   const data = await Stories.find({ user: req.user.id });
+  console.log(req.story);
+  res.send(req.story);
+});
+
 // Admin controller
 // @desc    Get all story
 // @route   GET /api/users/getAllStory
 // @access  Private/Admin
 
-const getAllStory = asyncHandler(async (req, res) => {
+const adminGetAllStory = asyncHandler(async (req, res) => {
   const data = await Stories.find({});
   res.send(data);
 });
-
 // Admin controller
 // @desc    Get user by id
 // @route   GET /api/story/:id
@@ -110,4 +115,11 @@ const updateStory = asyncHandler(async (req, res) => {
   }
 });
 
-export { addstories, getAllStory, getStoryById, deleteStory, updateStory };
+export {
+  addstories,
+  getAllStory,
+  getStoryById,
+  deleteStory,
+  updateStory,
+  adminGetAllStory,
+};

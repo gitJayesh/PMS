@@ -6,6 +6,10 @@ const storyschema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    // team: {
+    //   type: String,
+    //   required: true,
+    // },
     storyname: {
       type: String,
       required: true,

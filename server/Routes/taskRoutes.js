@@ -12,7 +12,7 @@ import { protect } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.route("/").post(addtask).get(protect, getAllTasks);
+router.route("/").post(protect, addtask).get(protect, getAllTasks);
 
 router.route("/:id").get(getTaskById).delete(deleteTask).put(updateTask);
 

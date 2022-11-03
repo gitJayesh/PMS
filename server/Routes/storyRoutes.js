@@ -7,12 +7,16 @@ import {
   getStoryById,
   deleteStory,
   updateStory,
+  adminGetAllStory,
 } from "../Controller/storyController.js";
 import { protect } from "../middleware/auth.js";
+import Stories from "../Models/Stories.js";
 
 const router = express.Router();
 
 router.route("/").post(addstories).get(protect, getAllStory);
+
+router.route("/adminGetAllStory").get(protect, adminGetAllStory);
 
 router.route("/:id").get(getStoryById).delete(deleteStory).put(updateStory);
 

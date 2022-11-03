@@ -11,21 +11,32 @@ const addtask = asyncHandler(async (req, res) => {
 
   const { taskname, taskdescription, duedate, status } = req.body;
 
-  console.log(taskname, taskdescription, duedate, status);
-  const taskExists = await Tasks.findOne({ taskname });
+  // try {
+  //   const newTask = new Tasks({
+  //     user: req.user,
+  //     taskname,
+  //     taskdescription,
+  //     duedate,
+  //     status,
+  //   });
+  //   const task = await newTask.save();
+  //   res.json(task);
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).send("server error");
+  // }
+  console.log(req.user);
 
-  if (taskExists) {
-    res.status(400);
-    throw new Error("task already exists");
-  }
+  // console.log(taskname, taskdescription, duedate, status);
 
   const task = await Tasks.create({
+    user: req.user,
     taskname,
     taskdescription,
     duedate,
     status,
   });
-
+  console.log(task);
   if (task) {
     res.status(201).json({
       _id: task._id,
@@ -34,11 +45,13 @@ const addtask = asyncHandler(async (req, res) => {
       duedate: task.duedate,
       status: task.status,
       //token: generateToken(user._id),
+      user: req.user,
     });
   } else {
     res.status(400);
     throw new Error("Invalid story data");
   }
+  // res.json(task);
 });
 
 // Admin controller
@@ -47,8 +60,10 @@ const addtask = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 
 const getAllTasks = asyncHandler(async (req, res) => {
-  const data = await Tasks.find({});
+  const data = await Tasks.find({ user: req.user });
   res.send(data);
+  // console.log(data);
+  // console.log(req.user);
 });
 
 // Admin controller
