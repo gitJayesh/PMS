@@ -1,5 +1,4 @@
 import asyncHandler from "express-async-handler";
-import stories from "../Models/stories.js";
 import generateToken from "../utils/generateToken.js";
 import User from "../Models/User.js";
 
@@ -10,9 +9,9 @@ import User from "../Models/User.js";
 const registerUser = asyncHandler(async (req, res) => {
   //res.send("Hello");
 
-  const { name, email, phone, isPM, password } = req.body;
+  const { name, email, phone, password } = req.body;
 
-  console.log(name, email, phone, isPM, password.red.bold);
+  console.log(name, email, phone, password);
   const userExists = await User.findOne({ email });
 
   if (userExists) {
@@ -46,46 +45,36 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/user/login
 // @access  Public
 
-// const authUser = asyncHandler(async (req, res) => {
-//   const { email, password } = req.body;
+const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  //   res.json({
+  //     email,
+  //     password,
+  //   });
+  const user = await User.findOne({ email });
+  console.log(user);
 
-//   const user = await User.findOne({ email });
-//   console.log(user);
-
-//   if (user && password) {
-//     res.status(200).json({
-//       _id: user._id,
-//       name: user.name,
-//       email: user.email,
-//       phone: user.phone,
-//       token: generateToken(user._id),
-//     });
-//   } else {
-//     res.status(401);
-//     throw new Error("Invalid email or password");
-//   }
-// });
+  if (user && (await user.matchPassword(password))) {
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password");
+  }
+});
 
 // Admin controller
 // @desc    Get all users
 // @route   GET /api/users
 // @access  Private/Admin
-// const getAllUsers = asyncHandler(async (req, res) => {
-//   const data = await User.find({}).select("-password");
-//   res.send(data);
-// });
 
-// @desc    ADD NEW STORIES
-// @route   POST /api/user/addstories
-// @access  Public
-
-// Admin controller
-// @desc    Get all users
-// @route   GET /api/users/getAllStory
-// @access  Private/Admin
-
-const getAllStory = asyncHandler(async (req, res) => {
-  const data = await stories.find({});
+const getAllUsers = asyncHandler(async (req, res) => {
+  const data = await User.find({}).select("-password");
   res.send(data);
 });
 
@@ -93,18 +82,66 @@ const getAllStory = asyncHandler(async (req, res) => {
 // @desc    Get user by id
 // @route   GET /api/users/:id
 // @access  Private/Admin
-// const getUserById = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.params._id);
-//   if (user) {
-//     res.json(user);
-//   } else {
-//     res.status(404);
-//     throw new error("User not found");
-//   }
-// });
 
-export // registerUser,
-// getAllUsers,
-// authUser,
-// getUserById,
- {};
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  //console.log("helloworld");
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new error("User not found");
+  }
+});
+
+// Admin controller
+// @desc    Delete user
+// @route   DELETE /api/user/:ids
+// @access  Private/Admin
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    await user.remove(res.json({ message: "User removed" }));
+  } else {
+    res.status(404);
+    throw new error("User not found");
+  }
+});
+
+// Admin controller
+// @desc    Update user
+// @route   PUT /api/users/:id
+// @access  Private/Admin
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.phone = req.body.phone || user.phone;
+    user.password = req.body.password || user.password;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      phone: updatedUser.phone,
+      password: updatedUser.password,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+export {
+  registerUser,
+  authUser,
+  getAllUsers,
+  getUserById,
+  deleteUser,
+  updateUser,
+};

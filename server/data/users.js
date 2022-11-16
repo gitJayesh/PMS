@@ -6,18 +6,18 @@ const users = [
     email: "admin@example.com",
     phone: "9660366537",
     password: bcrypt.hashSync("123456", 10),
-    isAdmin: true,
+    isPM: true,
   },
   {
     name: "John Doe",
     email: "john@example.com",
-    phone: "9660366537",
+    phone: "1234568799",
     password: "123456",
   },
   {
     name: "Jane Doe",
     email: "jane@example.com",
-    phone: "9660366537",
+    phone: "8079019984",
     password: bcrypt.hashSync("123456", 10),
   },
 ];
