@@ -3,13 +3,13 @@ import authContext from "./authContext.js";
 import axios from "axios";
 import authReducer from "./authReducer";
 import {
-  // USER_REGISTER_SUCCESS,
-  // USER_REGISTER_REQUEST,
-  // USER_REGISTER_FAIL,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  // USER_LOGOUT,
+  USER_LOGOUT,
   // USER_DETAILS_REQUEST,
   // USER_DETAILS_SUCCESS,
   // USER_DETAILS_FAIL,
@@ -59,6 +59,42 @@ const AuthState = (props) => {
 
   //register User
 
+  const register = async (name, email, phone, password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      dispatch({
+        type: USER_REGISTER_REQUEST,
+      });
+      const res = await axios.post(
+        "/api/user/",
+        { name, email, phone, password },
+        config
+      );
+      console.log(res.data);
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload: err.response.data.msg,
+      });
+    }
+  };
+
+  // Logout
+  const logout = () => {
+    dispatch({
+      type: USER_LOGOUT,
+    });
+    document.location.href = "/login";
+  };
+
   return (
     <authContext.Provider
       value={{
@@ -66,8 +102,9 @@ const AuthState = (props) => {
         loading: state.loading,
         userInfo: state.userInfo,
         error: state.error,
-        // register,
+        register,
         login,
+        logout,
       }}
     >
       {props.children}

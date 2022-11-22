@@ -2,30 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../style/responsive.css";
 import "../../style/style.css";
-import SideBar from "./SideBar";
+import NavbarUser from "../Layout/NavbarUser";
+import SideBar from "../Layout/SideBar.js";
 
 const Task = () => {
   return (
     <div>
       {<SideBar />}
       <div className="main-content">
-        <nav className="nav-bar">
-          <div className="nav-bar-search">
-            <input
-              className="search-bar-input"
-              type="text"
-              placeholder="Type here..."
-            />
-            <button className="search-bar-btn">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
-          <div className="logout-btn place-center">
-            <Link to="#">
-              <i className="fa-solid fa-right-from-bracket fa-2x"></i>
-            </Link>
-          </div>
-        </nav>
+        <NavbarUser />
+
         <div className="greeting-banner place-center">
           <h2>TASK 1</h2>
         </div>

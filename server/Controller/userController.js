@@ -60,6 +60,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       phone: user.phone,
+      isPM: user.isPM,
       token: generateToken(user._id),
     });
   } else {
@@ -75,6 +76,7 @@ const authUser = asyncHandler(async (req, res) => {
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const data = await User.find({}).select("-password");
+  //console.log("backend pm", data);
   res.send(data);
 });
 

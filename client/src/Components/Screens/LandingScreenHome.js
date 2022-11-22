@@ -1,15 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import LandingNavbar from "../Layout/LandingNavbar";
 
 const LandingScreenHome = () => {
-  const user = "User";
-
   return (
     <div className="hero">
       <LandingNavbar />
       <div className="hero-content">
         <div className="hero-content-welcome">
-          <p>Welcome {user}</p>
+          <p>Welcome</p>
         </div>
         <div className="hero-content-message">
           <h1>
@@ -21,10 +20,10 @@ const LandingScreenHome = () => {
         </div>
         <div className="hero-content-btn">
           <button className="hero-content-btn1">
-            <a href="!#">Register</a>
+            <Link to="/register">Register</Link>
           </button>
           <button className="hero-content-btn2">
-            <a href="!#">Contact Us</a>
+            <Link to="!#">Contact Us</Link>
           </button>
         </div>
       </div>

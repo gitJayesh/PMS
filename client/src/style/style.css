@@ -150,7 +150,7 @@ ul {
   border-radius: 50px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 30px;
   background: rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 25px -10px rgba(31, 38, 135, 0.37);
@@ -172,7 +172,10 @@ ul {
 
 .logout-btn {
   height: 100%;
-  width: 100px;
+  width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .search-bar-input {

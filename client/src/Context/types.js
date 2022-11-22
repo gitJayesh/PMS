@@ -21,3 +21,13 @@ export const USER_LIST_REQUEST = "USER_LIST_REQUEST";
 export const USER_LIST_SUCCESS = "USER_LIST_SUCCESS";
 export const USER_LIST_FAIL = "USER_LIST_FAIL";
 export const USER_LIST_RESET = "USER_LIST_RESET";
+
+export const GET_TASKS = "GET_TASKS";
+export const CLEAR_TASKS = "CLEAR_TASKS";
+export const ADD_TASK = "ADD_TASK";
+export const DELETE_TASK = "DELETE_TASK";
+export const SET_CURRENT = "SET_CURRENT";
+export const CLEAR_CURRENT = "CLEAR CURRENT";
+export const UPDATE_TASK = "UPDATE_TASK";
+export const FILTER_TASKS = "FILTER_TASKS";
+export const TASK_ERROR = "TASK_ERROR";
