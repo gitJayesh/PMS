@@ -28,8 +28,15 @@ const TaskState = (props) => {
 
   // Get Tasks
   const getTasks = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    };
+
+    console.log(config);
     try {
-      const res = await axios.get("/api/task");
+      const res = await axios.get("/api/task", config);
       dispatch({
         type: GET_TASKS,
         payload: res.data,

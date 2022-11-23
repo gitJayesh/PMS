@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SideBar from "../Layout/SideBar.js";
 import "../../style/responsive.css";
@@ -9,10 +9,32 @@ import AuthContext from "../../Context/auth/authContext.js";
 
 const DashboardScreen = () => {
   const authContext = useContext(AuthContext);
-  const { userInfo } = authContext;
+  const { userInfo, user, isAuthenticated, loadUser } = authContext;
 
-  const { isPM } = userInfo;
-  console.log(" jayesh", userInfo);
+  // const [data, setData] = useState(null);
+
+  useEffect(() => {
+    loadUser();
+    // fetch("/api/user", {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.token}`,
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((d) => {
+    //     setData(d);
+    //   });
+    // eslint-disable-next-line
+  }, []);
+
+  // if (isAuthenticated) {
+  // const { isPM } = user;
+  // }
+  // console.log(isPM);
+
+  // console.log(userInfo);
+  // console.log("Ravi", data);
+
   const userLinks = (
     <Fragment>
       <div className="card place-center">
@@ -46,13 +68,13 @@ const DashboardScreen = () => {
         </Link>
       </div>
       <div className="card place-center">
-        <Link to="" style={{ textAlign: "center" }}>
+        <Link to="/taskspage" style={{ textAlign: "center" }}>
           <i className="fa-solid fa-bars-progress fa-4x"></i>Tasks
         </Link>
       </div>
     </Fragment>
   );
-
+  console.log("ravi", user);
   return (
     <>
       <SideBar />
@@ -60,7 +82,7 @@ const DashboardScreen = () => {
         <NavbarUser />
         <GreetingBanner />
         <div className="dashboard-cards">
-          {isPM ? projectManagerLinks : userLinks}
+          {user && (user.isPM ? projectManagerLinks : userLinks)}
         </div>
       </div>
     </>

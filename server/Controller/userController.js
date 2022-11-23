@@ -69,6 +69,19 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @route    GET api/auth
+// @desc     Get logged user
+// @access   Private
+const getAuthUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user).select("-password");
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // Admin controller
 // @desc    Get all users
 // @route   GET /api/users
@@ -142,6 +155,7 @@ const updateUser = asyncHandler(async (req, res) => {
 export {
   registerUser,
   authUser,
+  getAuthUser,
   getAllUsers,
   getUserById,
   deleteUser,

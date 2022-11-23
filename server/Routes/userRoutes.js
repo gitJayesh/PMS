@@ -5,6 +5,7 @@ import {
   registerUser,
   authUser,
   getAllUsers,
+  getAuthUser,
   getUserById,
   deleteUser,
   updateUser,
@@ -12,9 +13,12 @@ import {
 import { protect } from "../middleware/auth.js";
 const router = express.Router();
 
-router.route("/").post(registerUser).get(protect, getAllUsers);
+router.route("/").post(registerUser).get(protect, getAuthUser);
+router.route("/all-users").get(protect, getAllUsers);
 
 router.route("/login").post(authUser);
 router.route("/:id").get(getUserById).delete(deleteUser).put(updateUser);
 
 export default router;
+
+// router.get('/', auth,

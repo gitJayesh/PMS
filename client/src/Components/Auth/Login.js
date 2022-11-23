@@ -7,15 +7,15 @@ import loginGIF from "../img/login.gif";
 const Login = () => {
   const authContext = useContext(AuthContext);
 
-  const { login, userInfo, loading } = authContext;
+  const { login, userInfo, isAuthenticated, loading } = authContext;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (userInfo) {
-      navigate("/dashboard");
+    if (isAuthenticated) {
+      navigate("/");
     }
   });
   const onSubmit = (e) => {
@@ -47,7 +47,10 @@ const Login = () => {
                     className="input"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      console.log(email);
+                    }}
                   />
                   <input
                     type="password"

@@ -6,10 +6,10 @@ import "../../style/style.css";
 
 const SideBar = () => {
   const authContext = useContext(AuthContext);
-  const { userInfo } = authContext;
+  const { user } = authContext;
 
-  const { isPM } = userInfo;
-  console.log(" jayesh", userInfo);
+  // const { isPM } = userInfo;
+  // console.log(" jayesh", userInfo);
   const userLinks = (
     <Fragment>
       <ul className="side-bar-links">
@@ -72,7 +72,7 @@ const SideBar = () => {
             </h1>
           </div>
           <div className="side-bar-list">
-            {isPM ? projectManagerLinks : userLinks}
+            {user && (user.isPM ? projectManagerLinks : userLinks)}
           </div>
           <div className="side-bar-footer">
             <div className="contact-us">

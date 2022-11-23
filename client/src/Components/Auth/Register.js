@@ -8,7 +8,7 @@ import AuthContext from "../../Context/auth/authContext";
 const Register = () => {
   const authContext = useContext(AuthContext);
 
-  const { register, userInfo, loading } = authContext;
+  const { register, userInfo, loading, isAuthenticated } = authContext;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,8 +18,8 @@ const Register = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (userInfo) {
-      navigate("/dashboard");
+    if (isAuthenticated) {
+      navigate("/");
     }
   });
 

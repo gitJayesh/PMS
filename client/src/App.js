@@ -8,6 +8,7 @@ import Authstate from "./Context/auth/AuthState.js";
 import TaskState from "./Context/task/TaskState.js";
 import TasksScreen from "./Components/Screens/TasksScreen";
 import setAuthToken from "./utils/SetAuthToken";
+// import PrivateRoute from "./Components/Routing/PrivateRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -20,8 +21,8 @@ function App() {
         <Router>
           <div className="App">
             <Routes>
-              <Route path="dashboard" element={<DashboardScreen />} />
-              <Route exact path="/" element={<LandingScreenHome />} />
+              <Route path="/" element={<DashboardScreen />} />
+              <Route exact path="landing" element={<LandingScreenHome />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="taskspage" element={<TasksScreen />} />

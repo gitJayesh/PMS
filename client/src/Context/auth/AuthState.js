@@ -2,24 +2,28 @@ import React, { useReducer } from "react";
 import authContext from "./authContext.js";
 import axios from "axios";
 import authReducer from "./authReducer";
+import setAuthToken from "../../utils/SetAuthToken";
 import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_REQUEST,
   USER_REGISTER_FAIL,
-  USER_LOGIN_REQUEST,
+  // USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
   // USER_DETAILS_REQUEST,
-  // USER_DETAILS_SUCCESS,
-  // USER_DETAILS_FAIL,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
   // USER_DETAILS_RESET,
 } from "../types.js";
 
 const AuthState = (props) => {
   const initialState = {
-    users: [],
+    // users: [],
+    token: localStorage.getItem("token"),
+    isAuthenticated: null,
     userInfo: null,
+    user: null,
     loading: true,
     error: null,
   };
@@ -28,27 +32,51 @@ const AuthState = (props) => {
 
   // Login User
 
+  // Load User
+  const loadUser = async () => {
+    // if (localStorage.token) {
+    //   setAuthToken(localStorage.token);
+    // }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    };
+
+    console.log(config);
+
+    try {
+      const res = await axios.get("/api/user", config);
+
+      dispatch({
+        type: USER_DETAILS_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: USER_DETAILS_FAIL,
+      });
+    }
+  };
+
   const login = async (email, password) => {
     const config = {
       headers: {
-        type: USER_LOGIN_REQUEST,
         "Content-Type": "application/json",
       },
     };
     try {
-      // dispatch({
-      //   type: USER_LOGIN_REQUEST,
-      // });
       const res = await axios.post(
         "/api/user/login",
         { email, password },
         config
       );
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: res.data,
       });
+      loadUser();
     } catch (err) {
       dispatch({
         type: USER_LOGIN_FAIL,
@@ -79,6 +107,7 @@ const AuthState = (props) => {
         type: USER_REGISTER_SUCCESS,
         payload: res.data,
       });
+      loadUser();
     } catch (err) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -98,11 +127,14 @@ const AuthState = (props) => {
   return (
     <authContext.Provider
       value={{
-        // token: state.token,
+        token: state.token,
         loading: state.loading,
+        isAuthenticated: state.isAuthenticated,
         userInfo: state.userInfo,
+        user: state.user,
         error: state.error,
         register,
+        loadUser,
         login,
         logout,
       }}
