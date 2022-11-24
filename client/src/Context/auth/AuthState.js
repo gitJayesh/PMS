@@ -2,7 +2,6 @@ import React, { useReducer } from "react";
 import authContext from "./authContext.js";
 import axios from "axios";
 import authReducer from "./authReducer";
-import setAuthToken from "../../utils/SetAuthToken";
 import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_REQUEST,

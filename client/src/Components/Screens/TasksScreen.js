@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Sidebar from "../Layout/SideBar.js";
 import NavbarUser from "../Layout/NavbarUser.js";
 import Tasks from "./Tasks.js";
 
 import TaskContext from "../../Context/task/taskContext.js";
-import TaskModal from "./TaskModal.js";
+import CreateTask from "./CreateTask.js";
 
 const TasksScreen = () => {
   const taskContext = useContext(TaskContext);
@@ -34,6 +33,7 @@ const TasksScreen = () => {
             <h2>TASKS</h2>
           </div>
           <div className="user-dashboard-cards">
+            <CreateTask />
             {tasks &&
               tasks.map((task) => (
                 <div onClick={() => setModalStyle("block")}>
