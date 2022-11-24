@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import TaskContext from "../../Context/task/taskContext";
 
 function MyVerticallyCenteredModal(props) {
+  const taskContext = useContext(TaskContext);
+  const { deleteTask, tasks } = taskContext;
+  console.log(tasks);
+
   const [edit, setEdit] = useState(true);
+
   const now = 60;
   const onClick = () => {
     setEdit(false);
@@ -14,6 +20,11 @@ function MyVerticallyCenteredModal(props) {
   console.log(props.task);
   const { taskname, taskdescription, duedate, status, _id } = props.task;
   console.log(_id);
+
+  const deleteTasks = () => {
+    deleteTask(_id);
+    console.log("delete");
+  };
   return (
     <Modal
       {...props}
@@ -50,6 +61,10 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onClick}>Edit</Button>
+        <Button onClick={deleteTasks} varient="danger">
+          Delete
+        </Button>
+
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>

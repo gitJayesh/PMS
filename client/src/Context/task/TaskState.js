@@ -7,7 +7,7 @@ import {
   GET_TASKS,
   // CLEAR_TASKS,
   ADD_TASK,
-  // DELETE_TASK,
+  DELETE_TASK,
   // SET_CURRENT,
   // CLEAR_CURRENT,
   // UPDATE_TASK,
@@ -50,17 +50,43 @@ const TaskState = (props) => {
     }
   };
   // Add Task
-  const addTask = async (Task) => {
+  const addTask = async (taskname, taskdescription, duedate) => {
     const config = {
       header: {
+        Authorization: `Bearer ${localStorage.token}`,
         "Content-Type": "application-json",
       },
     };
+    console.log(config);
     try {
-      const res = await axios.post("/api/task", Task, config);
+      const res = await axios.post(
+        "/api/task",
+        { taskname, taskdescription, duedate },
+        {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2Y0YmUwMzFiODVkMGEyYTFkMTlhOCIsImlhdCI6MTY2OTI4Njg4MCwiZXhwIjoxNjcxODc4ODgwfQ.EzYrmDmSjoE6KYBISpsWc7qZ1zwRekd8eyEBuonj23s",
+          "Content-Type": "application-json",
+        }
+      );
       dispatch({
         type: ADD_TASK,
         payload: res.data,
+      });
+      console.log(res.data);
+    } catch (error) {
+      dispatch({
+        type: TASK_ERROR,
+        payload: error.response.msg,
+      });
+    }
+  };
+  // Delete Task
+  const deleteTask = async (id) => {
+    try {
+      await axios.delete(`/api/task/${id}`);
+      dispatch({
+        type: DELETE_TASK,
+        payload: id,
       });
     } catch (error) {
       dispatch({
@@ -69,21 +95,6 @@ const TaskState = (props) => {
       });
     }
   };
-  // // Delete Task
-  // const deleteTask = async (id) => {
-  //   try {
-  //     await axios.delete(`/api/task/${id}`);
-  //     dispatch({
-  //       type: DELETE_TASK,
-  //       payload: id,
-  //     });
-  //   } catch (error) {
-  //     dispatch({
-  //       type: TASK_ERROR,
-  //       payload: error.response.msg,
-  //     });
-  //   }
-  // };
 
   // //Clear Tasks
   // const clearTasks = () => {
@@ -150,7 +161,7 @@ const TaskState = (props) => {
         filtered: state.filtered,
         error: state.error,
         addTask,
-        // deleteTask,
+        deleteTask,
         // setCurrent,
         // clearCurrent,
         // updateTask,

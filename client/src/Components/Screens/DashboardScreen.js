@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SideBar from "../Layout/SideBar.js";
+// import SideBar from "../Layout/SideBar.js";
 import "../../style/responsive.css";
 import "../../style/style.css";
 import NavbarUser from "../Layout/NavbarUser";
@@ -77,7 +77,7 @@ const DashboardScreen = () => {
   console.log("ravi", user);
   return (
     <>
-      <SideBar />
+      {/* <SideBar /> */}
       <div className="main-content">
         <NavbarUser />
         <GreetingBanner />

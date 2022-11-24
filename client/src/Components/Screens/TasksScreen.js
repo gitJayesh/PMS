@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import Sidebar from "../Layout/SideBar.js";
+// import Sidebar from "../Layout/SideBar.js";
 import NavbarUser from "../Layout/NavbarUser.js";
 import Tasks from "./Tasks.js";
 
@@ -26,14 +26,16 @@ const TasksScreen = () => {
   return (
     <>
       <div>
-        {<Sidebar />}
+        {/* {<Sidebar />} */}
         <div className="main-content">
           <NavbarUser />
           <div className="greeting-banner place-center">
             <h2>TASKS</h2>
           </div>
-          <div className="user-dashboard-cards">
+          <div className="create-task">
             <CreateTask />
+          </div>
+          <div className="user-dashboard-cards">
             {tasks &&
               tasks.map((task) => (
                 <div onClick={() => setModalStyle("block")}>

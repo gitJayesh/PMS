@@ -11,23 +11,7 @@ const addtask = asyncHandler(async (req, res) => {
 
   const { taskname, taskdescription, duedate, status } = req.body;
 
-  // try {
-  //   const newTask = new Tasks({
-  //     user: req.user,
-  //     taskname,
-  //     taskdescription,
-  //     duedate,
-  //     status,
-  //   });
-  //   const task = await newTask.save();
-  //   res.json(task);
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).send("server error");
-  // }
   console.log(req.user);
-
-  // console.log(taskname, taskdescription, duedate, status);
 
   const task = await Tasks.create({
     user: req.user,

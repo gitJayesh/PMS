@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import TaskContext from "../../Context/task/taskContext";
 
 function MyVerticallyCenteredModal(props) {
-  const [edit, setEdit] = useState(true);
-  const now = 60;
-  const onClick = () => {
-    setEdit(false);
+  // const [ setEdit] = useState(true);
+  const taskContext = useContext(TaskContext);
+  const { addTask } = taskContext;
+
+  const [taskname, setName] = useState("");
+  const [taskdescription, setTaskDescription] = useState("");
+  const [duedate, setDuedate] = useState("");
+  // const [taskstatus, setStatus] = useState("")
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(taskname, taskdescription, duedate);
+    addTask(taskname, taskdescription, duedate);
   };
+
+  const now = 60;
+  // const onClick = () => {
+  //   setEdit(false);
+  // };
   //   console.log(props.task);
   //   const { taskname, taskdescription, duedate, status } = props.task;
   return (
@@ -27,37 +41,46 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={onSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Task Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter Task Name" />
+            <Form.Control
+              type="text"
+              placeholder="Enter Task Name"
+              value={taskname}
+              onChange={(e) => setName(e.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Task description</Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
-              disabled={edit && "true"}
               placeholder="Task Description"
+              value={taskdescription}
+              onChange={(e) => setTaskDescription(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="date">
             <Form.Label>Completion Date</Form.Label>
-            <Form.Control type="date" placeholder="Completion Date" />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
+            <Form.Control
+              type="date"
+              placeholder="Completion Date"
+              value={duedate}
+              onChange={(e) => setDuedate(e.target.value)}
+            />
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={onClick}>Edit</Button>
+      {/* <Modal.Footer>
+        <Button variant="primary" type="submit" onSubmit={onSubmit}>
+          Submit
+        </Button>
         <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 }

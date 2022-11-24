@@ -2,7 +2,7 @@ import {
   GET_TASKS,
   // CLEAR_TASKS,
   ADD_TASK,
-  // DELETE_TASK,
+  DELETE_TASK,
   // SET_CURRENT,
   // CLEAR_CURRENT,
   // UPDATE_TASK,
@@ -33,12 +33,12 @@ var switchCases = (state, action) => {
     //     ),
     //     loading: false,
     //   };
-    // case DELETE_TASK:
-    //   return {
-    //     ...state,
-    //     tasks: state.tasks.filter((task) => task._id !== action.payload),
-    //     loading: false,
-    //   };
+    case DELETE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.filter((task) => task._id !== action.payload),
+        loading: false,
+      };
     // case CLEAR_TASKS:
     //   return {
     //     ...state,
