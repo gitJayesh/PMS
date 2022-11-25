@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 // import Sidebar from "../Layout/SideBar.js";
 import NavbarUser from "../Layout/NavbarUser.js";
-import Tasks from "./Tasks.js";
+import Tasks from "./Tasks/Tasks.js";
 
 import TaskContext from "../../Context/task/taskContext.js";
-import CreateTask from "./CreateTask.js";
+import CreateTask from "./Tasks/CreateTask.js";
 
 const TasksScreen = () => {
   const taskContext = useContext(TaskContext);

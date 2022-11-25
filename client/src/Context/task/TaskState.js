@@ -10,7 +10,7 @@ import {
   DELETE_TASK,
   // SET_CURRENT,
   // CLEAR_CURRENT,
-  // UPDATE_TASK,
+  UPDATE_TASK,
   // FILTER_TASKS,
   // CLEAR_FILTER,
   TASK_ERROR,
@@ -28,15 +28,8 @@ const TaskState = (props) => {
 
   // Get Tasks
   const getTasks = async () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`,
-      },
-    };
-
-    console.log(config);
     try {
-      const res = await axios.get("/api/task", config);
+      const res = await axios.get("/api/task");
       dispatch({
         type: GET_TASKS,
         payload: res.data,
@@ -50,24 +43,15 @@ const TaskState = (props) => {
     }
   };
   // Add Task
-  const addTask = async (taskname, taskdescription, duedate) => {
-    const config = {
-      header: {
-        Authorization: `Bearer ${localStorage.token}`,
-        "Content-Type": "application-json",
-      },
-    };
-    console.log(config);
+  const addTask = async (taskname, taskdescription, duedate, status) => {
+    // console.log(config);
     try {
-      const res = await axios.post(
-        "/api/task",
-        { taskname, taskdescription, duedate },
-        {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2Y0YmUwMzFiODVkMGEyYTFkMTlhOCIsImlhdCI6MTY2OTI4Njg4MCwiZXhwIjoxNjcxODc4ODgwfQ.EzYrmDmSjoE6KYBISpsWc7qZ1zwRekd8eyEBuonj23s",
-          "Content-Type": "application-json",
-        }
-      );
+      const res = await axios.post("/api/task", {
+        taskname,
+        taskdescription,
+        duedate,
+        status,
+      });
       dispatch({
         type: ADD_TASK,
         payload: res.data,
@@ -118,26 +102,31 @@ const TaskState = (props) => {
   //   });
   // };
 
-  // //update Task
-  // const updateTask = async (Task) => {
-  //   const config = {
-  //     header: {
-  //       "Content-Type": "application-json",
-  //     },
-  //   };
-  //   try {
-  //     const res = await axios.put(`/api/task/${Task._id}`, Task, config);
-  //     dispatch({
-  //       type: UPDATE_TASK,
-  //       payload: res.data,
-  //     });
-  //   } catch (error) {
-  //     dispatch({
-  //       type: TASK_ERROR,
-  //       payload: error.response.msg,
-  //     });
-  //   }
-  // };
+  //update Task
+  const updateTask = async (progress, _id) => {
+    const config = {
+      header: {
+        "Content-Type": "application-json",
+      },
+    };
+    try {
+      const res = await axios.put(
+        `/api/task/${_id}`,
+        { status: progress },
+        config
+      );
+      dispatch({
+        type: UPDATE_TASK,
+        payload: res.data,
+      });
+      console.log(res.data);
+    } catch (error) {
+      dispatch({
+        type: TASK_ERROR,
+        payload: error.response.msg,
+      });
+    }
+  };
 
   // //filter Tasks
   // const filterTask = (text) => {
@@ -164,7 +153,7 @@ const TaskState = (props) => {
         deleteTask,
         // setCurrent,
         // clearCurrent,
-        // updateTask,
+        updateTask,
         // filterTask,
         // clearFilter,
         // clearTasks,

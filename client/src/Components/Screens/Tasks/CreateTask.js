@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import TaskContext from "../../Context/task/taskContext";
+import TaskContext from "../../../Context/task/taskContext";
 
 function MyVerticallyCenteredModal(props) {
   // const [ setEdit] = useState(true);
@@ -14,14 +14,13 @@ function MyVerticallyCenteredModal(props) {
   const [taskname, setName] = useState("");
   const [taskdescription, setTaskDescription] = useState("");
   const [duedate, setDuedate] = useState("");
-  // const [taskstatus, setStatus] = useState("")
+  const [status, setStatus] = useState(0);
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(taskname, taskdescription, duedate);
-    addTask(taskname, taskdescription, duedate);
+    console.log("createtask", taskname, taskdescription, duedate, status);
+    addTask(taskname, taskdescription, duedate, status);
   };
 
-  const now = 60;
   // const onClick = () => {
   //   setEdit(false);
   // };

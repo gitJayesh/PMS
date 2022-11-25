@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import "./App.css";
 import LandingScreenHome from "./Components/Screens/LandingScreenHome";
 import Login from "./Components/Auth/Login";
@@ -10,11 +11,14 @@ import TasksScreen from "./Components/Screens/TasksScreen";
 import setAuthToken from "./utils/SetAuthToken";
 // import PrivateRoute from "./Components/Routing/PrivateRoute";
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+// if (localStorage.token) {
+//   setAuthToken(localStorage.token);
+// }
 
 function App() {
+  axios.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.token}`;
   return (
     <Authstate>
       <TaskState>
