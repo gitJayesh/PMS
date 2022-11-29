@@ -37,4 +37,3 @@ export const ADD_STORY = "ADD_STORY";
 export const UPDATE_STORY = "UPDATE_STORY";
 export const DELETE_STORY = "DELETE_STORY";
 export const ERROR_STORY = "ERROR_STORY";
-export const ADMIN_GET_ALL_STORY = "ADMIN_GET_ALL_STORY";

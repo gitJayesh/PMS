@@ -43,7 +43,7 @@ const addstories = asyncHandler(async (req, res) => {
 
 const getAllStory = asyncHandler(async (req, res) => {
   //   const data = await Stories.find({ user: req.user.id });
-  console.log(req.story);
+  // console.log(req.story);
   res.send(req.story);
 });
 

@@ -99,17 +99,26 @@
 
 // export default SideBar;
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AuthContext from "../../Context/auth/authContext";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 function SideBar() {
+  const authContext = useContext(AuthContext);
+  const { logout } = authContext;
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const onClick = () => {
+    console.log("logout");
+    logout();
+  };
 
   return (
     <>
@@ -122,6 +131,10 @@ function SideBar() {
           <Offcanvas.Title>
             <div className="logo">
               <h1>
+                <i
+                  className="fa-solid fa-diagram-project"
+                  style={{ color: "#2076ff", display: "block" }}
+                ></i>
                 <span style={{ color: "#bd0e0e" }}>P</span>
                 <span style={{ color: "#6900a7" }}>M</span>
                 <span style={{ color: "#00a90b" }}>S</span>
@@ -146,6 +159,10 @@ function SideBar() {
             <li>
               <i className="text-gray fa-solid fa-people-group mxr-1"></i>
               <a to="/adminteams">Teams</a>
+            </li>
+            <li onClick={onClick}>
+              <i className="text-gray fa-solid fa-people-group mxr-1"></i>
+              <a to="/adminteams">Logout</a>
             </li>
           </ul>
         </Offcanvas.Body>

@@ -1,15 +1,24 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import TaskContext from "../../../Context/task/taskContext";
+import StoryContext from "../../../Context/story/storyContext";
 
 function MyVerticallyCenteredModal(props) {
   // const [ setEdit] = useState(true);
   const taskContext = useContext(TaskContext);
   const { addTask } = taskContext;
+
+  const storyContext = useContext(StoryContext);
+  const { getStory, stories } = storyContext;
+
+  useEffect(() => {
+    getStory();
+  }, []);
+  console.log(stories);
 
   const [taskname, setName] = useState("");
   const [taskdescription, setTaskDescription] = useState("");

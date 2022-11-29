@@ -11,29 +11,9 @@ const DashboardScreen = () => {
   const authContext = useContext(AuthContext);
   const { userInfo, user, isAuthenticated, loadUser } = authContext;
 
-  // const [data, setData] = useState(null);
-
   useEffect(() => {
     loadUser();
-    // fetch("/api/user", {
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.token}`,
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((d) => {
-    //     setData(d);
-    //   });
-    // eslint-disable-next-line
   }, []);
-
-  // if (isAuthenticated) {
-  // const { isPM } = user;
-  // }
-  // console.log(isPM);
-
-  // console.log(userInfo);
-  // console.log("Ravi", data);
 
   const userLinks = (
     <Fragment>
@@ -63,7 +43,7 @@ const DashboardScreen = () => {
         </Link>
       </div>
       <div className="card place-center">
-        <Link to="" style={{ textAlign: "center" }}>
+        <Link to="/storiespage" style={{ textAlign: "center" }}>
           <i className="fa-solid fa-laptop-file fa-4x"></i>Stories
         </Link>
       </div>

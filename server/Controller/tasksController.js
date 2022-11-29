@@ -9,12 +9,13 @@ import generateToken from "../utils/generateToken.js";
 const addtask = asyncHandler(async (req, res) => {
   //   res.send("Hello");
 
-  const { taskname, taskdescription, duedate, status } = req.body;
+  const { story, taskname, taskdescription, duedate, status } = req.body;
 
   console.log(req.user);
 
   const task = await Tasks.create({
     user: req.user,
+    story,
     taskname,
     taskdescription,
     duedate,

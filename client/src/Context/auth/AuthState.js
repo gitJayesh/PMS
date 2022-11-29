@@ -14,11 +14,13 @@ import {
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
   // USER_DETAILS_RESET,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
 } from "../types.js";
 
 const AuthState = (props) => {
   const initialState = {
-    // users: [],
+    users: null,
     token: localStorage.getItem("token"),
     isAuthenticated: null,
     userInfo: null,
@@ -123,9 +125,18 @@ const AuthState = (props) => {
     document.location.href = "/login";
   };
 
+  //loadAllUsers
+  const loadAllUsers = async () => {
+    await axios
+      .get("/api/user/all-users")
+      .then((res) => dispatch({ type: USER_LIST_SUCCESS, payload: res.data }))
+      .catch((err) => dispatch({ type: USER_LIST_FAIL, payload: err.msg }));
+  };
+
   return (
     <authContext.Provider
       value={{
+        users: state.users,
         token: state.token,
         loading: state.loading,
         isAuthenticated: state.isAuthenticated,
@@ -135,6 +146,7 @@ const AuthState = (props) => {
         register,
         loadUser,
         login,
+        loadAllUsers,
         logout,
       }}
     >

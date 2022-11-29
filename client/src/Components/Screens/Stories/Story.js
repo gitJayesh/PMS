@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../style/responsive.css";
-import "../../style/style.css";
-import NavbarUser from "../Layout/NavbarUser";
-import SideBar from "../Layout/SideBar.js";
+// import "../../style/responsive.css";
+// import "../../style/style.css";
+import NavbarUser from "../../Layout/NavbarUser.js";
+// import SideBar from "../../Layout/SideBar.js";
 
 const Story = () => {
   return (
     <div>
-      {<SideBar />}
       <div className="main-content">
         <NavbarUser />
         <div className="greeting-banner place-center">

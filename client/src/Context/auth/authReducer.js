@@ -10,6 +10,8 @@ import {
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
   //   USER_DETAILS_RESET,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
 } from "../types.js";
 
 var switchCases = (state, action) => {
@@ -40,6 +42,7 @@ var switchCases = (state, action) => {
     case USER_LOGIN_FAIL:
     case USER_REGISTER_FAIL:
     case USER_DETAILS_FAIL:
+    case USER_LIST_FAIL:
       return {
         ...state,
         loading: false,
@@ -53,6 +56,12 @@ var switchCases = (state, action) => {
         isAuthenticated: null,
         userInfo: null,
         error: action.payload,
+      };
+    case USER_LIST_SUCCESS:
+      return {
+        ...state,
+        users: action.payload,
+        loading: false,
       };
     default:
       return state;

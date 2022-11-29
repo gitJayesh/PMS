@@ -7,8 +7,11 @@ import Register from "./Components/Auth/Register";
 import DashboardScreen from "./Components/Screens/DashboardScreen";
 import Authstate from "./Context/auth/AuthState.js";
 import TaskState from "./Context/task/TaskState.js";
+import StoryState from "./Context/story/StoryState.js";
 import TasksScreen from "./Components/Screens/TasksScreen";
-import setAuthToken from "./utils/SetAuthToken";
+import StoriesScreen from "./Components/Screens/StoriesScreen.js";
+import Story from "./Components/Screens/Stories/Story.js";
+// import setAuthToken from "./utils/SetAuthToken";
 // import PrivateRoute from "./Components/Routing/PrivateRoute";
 
 // if (localStorage.token) {
@@ -21,19 +24,23 @@ function App() {
   ] = `Bearer ${localStorage.token}`;
   return (
     <Authstate>
-      <TaskState>
-        <Router>
-          <div className="App">
-            <Routes>
-              <Route path="/" element={<DashboardScreen />} />
-              <Route exact path="landing" element={<LandingScreenHome />} />
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="taskspage" element={<TasksScreen />} />
-            </Routes>
-          </div>
-        </Router>
-      </TaskState>
+      <StoryState>
+        <TaskState>
+          <Router>
+            <div className="App">
+              <Routes>
+                <Route path="/" element={<DashboardScreen />} />
+                <Route exact path="landing" element={<LandingScreenHome />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="taskspage" element={<TasksScreen />} />
+                <Route path="storiespage" element={<StoriesScreen />} />
+                <Route path="story/:id" element={<Story />} />
+              </Routes>
+            </div>
+          </Router>
+        </TaskState>
+      </StoryState>
     </Authstate>
   );
 }
