@@ -5,8 +5,12 @@ import Tasks from "./Tasks/Tasks.js";
 
 import TaskContext from "../../Context/task/taskContext.js";
 import CreateTask from "./Tasks/CreateTask.js";
+import axios from "axios";
 
 const TasksScreen = () => {
+  axios.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.token}`;
   const taskContext = useContext(TaskContext);
   const { getTasks, tasks } = taskContext;
   console.log(tasks);
@@ -39,7 +43,7 @@ const TasksScreen = () => {
             {tasks &&
               tasks.map((task) => (
                 <div onClick={() => setModalStyle("block")}>
-                  <Tasks key={task.id} task={task} />
+                  <Tasks key={task._id} task={task} />
                 </div>
               ))}
           </div>

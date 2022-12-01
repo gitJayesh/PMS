@@ -1,18 +1,24 @@
 import {
   GET_STORY,
+  GET_ALL_STORIES,
   ADD_STORY,
   UPDATE_STORY,
   DELETE_STORY,
   ERROR_STORY,
   ADMIN_GET_ALL_STORY,
 } from "../types";
-
 var switchCases = (state, action) => {
   switch (action.type) {
-    case GET_STORY:
+    case GET_ALL_STORIES:
       return {
         ...state,
         stories: action.payload,
+        error: false,
+      };
+    case GET_STORY:
+      return {
+        ...state,
+        story: action.payload,
         error: false,
       };
     case ADMIN_GET_ALL_STORY:
@@ -37,7 +43,7 @@ var switchCases = (state, action) => {
       return {
         ...state,
         stories: state.stories.filter((story) => {
-          return story.id !== action.payload.id;
+          return story.id !== action.id;
         }),
         error: false,
       };
@@ -50,5 +56,4 @@ var switchCases = (state, action) => {
       return state;
   }
 };
-
 export default switchCases;

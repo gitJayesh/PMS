@@ -8,21 +8,13 @@ import TaskContext from "../../../Context/task/taskContext";
 
 function MyVerticallyCenteredModal(props) {
   const taskContext = useContext(TaskContext);
-  const { deleteTask, tasks, updateTask } = taskContext;
+  const { deleteTask, tasks, updateTask, getTasks } = taskContext;
   const { taskname, taskdescription, duedate, status, _id } = props.task;
-  // console.log(tasks);
 
   const [edit, setEdit] = useState(false);
-  // const [task, setTask] = useState({
-  //   _id,
-  //   taskname: " ",
-  //   taskdescription: " ",
-  //   duedate: " ",
-  //   status,
-  // });
+
   const [progress, setProgress] = useState(0);
 
-  // const now = 60;
   const onClick = () => {
     if (edit === false) {
       setEdit(true);
@@ -30,19 +22,19 @@ function MyVerticallyCenteredModal(props) {
       setEdit(false);
     }
   };
-  // console.log("progress", progress);
-  // console.log(props.task);
+
   console.log(_id);
 
   const deleteTasks = () => {
     deleteTask(_id);
     console.log("delete");
+    props.onHide(true);
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    // setTask({ _id, taskname, taskdescription, duedate, status: progress });
-    // console.log(progress);
+
     updateTask(progress, _id);
+    getTasks();
   };
   return (
     <Modal
@@ -60,10 +52,7 @@ function MyVerticallyCenteredModal(props) {
           <Form.Label>Task description</Form.Label>
           <p>{taskdescription}</p>
         </Form.Group>
-        {/* <Modal.Body>
-          <Form.Label>Completion date</Form.Label>
-          <p>Modal body text goes here.</p>
-        </Modal.Body> */}
+
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Completion date</Form.Label>
           <p>22/10/1998</p>

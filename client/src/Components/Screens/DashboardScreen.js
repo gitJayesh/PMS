@@ -6,15 +6,29 @@ import "../../style/style.css";
 import NavbarUser from "../Layout/NavbarUser";
 import GreetingBanner from "../Layout/GreetingBanner.js";
 import AuthContext from "../../Context/auth/authContext.js";
-
 const DashboardScreen = () => {
   const authContext = useContext(AuthContext);
   const { userInfo, user, isAuthenticated, loadUser } = authContext;
-
+  // const [data, setData] = useState(null);
   useEffect(() => {
     loadUser();
+    // fetch("/api/user", {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.token}`,
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((d) => {
+    //     setData(d);
+    //   });
+    // eslint-disable-next-line
   }, []);
-
+  // if (isAuthenticated) {
+  // const { isPM } = user;
+  // }
+  // console.log(isPM);
+  // console.log(userInfo);
+  // console.log("Ravi", data);
   const userLinks = (
     <Fragment>
       <div className="card place-center">
@@ -23,7 +37,7 @@ const DashboardScreen = () => {
         </Link>
       </div>
       <div className="card place-center">
-        <Link to="/storypage" style={{ textAlign: "center" }}>
+        <Link to="/storiespage" style={{ textAlign: "center" }}>
           <i className="fa-solid fa-laptop-file fa-4x"></i>My Stories
         </Link>
       </div>
@@ -34,7 +48,6 @@ const DashboardScreen = () => {
       </div>
     </Fragment>
   );
-
   const projectManagerLinks = (
     <Fragment>
       <div className="card place-center">
@@ -43,7 +56,7 @@ const DashboardScreen = () => {
         </Link>
       </div>
       <div className="card place-center">
-        <Link to="/storiespage" style={{ textAlign: "center" }}>
+        <Link to="/adminstories" style={{ textAlign: "center" }}>
           <i className="fa-solid fa-laptop-file fa-4x"></i>Stories
         </Link>
       </div>
@@ -68,5 +81,4 @@ const DashboardScreen = () => {
     </>
   );
 };
-
 export default DashboardScreen;

@@ -11,12 +11,7 @@ import StoryState from "./Context/story/StoryState.js";
 import TasksScreen from "./Components/Screens/TasksScreen";
 import StoriesScreen from "./Components/Screens/StoriesScreen.js";
 import Story from "./Components/Screens/Stories/Story.js";
-// import setAuthToken from "./utils/SetAuthToken";
-// import PrivateRoute from "./Components/Routing/PrivateRoute";
-
-// if (localStorage.token) {
-//   setAuthToken(localStorage.token);
-// }
+import AdminStoriesScreen from "./Components/Screens/Stories/AdminStoriesScreen";
 
 function App() {
   axios.defaults.headers.common[
@@ -36,6 +31,7 @@ function App() {
                 <Route path="taskspage" element={<TasksScreen />} />
                 <Route path="storiespage" element={<StoriesScreen />} />
                 <Route path="story/:id" element={<Story />} />
+                <Route path="adminstories" element={<AdminStoriesScreen />} />
               </Routes>
             </div>
           </Router>
